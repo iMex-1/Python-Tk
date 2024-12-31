@@ -1,0 +1,79 @@
+from ttkbootstrap import Window, ttk
+from ttkbootstrap.constants import *
+from tkinter import messagebox
+
+window = Window(themename="darkly")
+window.geometry('600x600')
+
+ad = None
+
+def add_charge():
+    global ad
+    add = ttk.Label(window, text="Autres charge", font=('Roboto', 12))
+    add.grid(row=8, padx=10, sticky=W)
+    ad = ttk.Entry(window, width=50, font=('Roboto', 12))
+    ad.grid(row=9, columnspan=5, padx=10, pady=5)
+    btn.grid(row=10, columnspan=5, pady=5)
+    frame.grid(row=11)
+
+def calculer():
+    try:
+        global ad
+        ad_value = float(ad.get()) if ad and ad.get().strip() else 0
+        totcharge = float(ele.get()) + float(ea.get()) + float(tel.get()) + ad_value
+        rez = float(rev.get()) - totcharge
+        revv = float(rev.get())
+        re.delete(0, 'end')
+        to.delete(0, 'end')
+        totr.delete(0, 'end')
+        re.insert(0, rez)
+        to.insert(0, totcharge)
+        totr.insert(0, revv)
+    except:
+        messagebox.showerror("Error", "Please enter a valid number")
+
+revenu = ttk.Label(window, text="Revenus", font=('Roboto', 12))
+rev = ttk.Entry(window, width=50, font=('Roboto', 12))
+revenu.grid(row=0, padx=10, sticky=W)
+rev.grid(row=1, columnspan=5, padx=10, pady=5, sticky=W)
+
+elec = ttk.Label(window, text="Electricité", font=('Roboto', 12))
+ele = ttk.Entry(window, width=50, font=('Roboto', 12))
+elec.grid(row=2, padx=10, sticky=W)
+ele.grid(row=3, columnspan=5, padx=10, pady=5, sticky=W)
+
+eau = ttk.Label(window, text="Eau", font=('Roboto', 12))
+ea = ttk.Entry(window, width=50, font=('Roboto', 12))
+eau.grid(row=4, padx=10, sticky=W)
+ea.grid(row=5, columnspan=5, padx=10, pady=5, sticky=W)
+
+tele = ttk.Label(window, text="Téléphone", font=('Roboto', 12))
+tel = ttk.Entry(window, width=50, font=('Roboto', 12))
+tele.grid(row=6, padx=10, sticky=W)
+tel.grid(row=7, columnspan=5, padx=10, pady=5, sticky=W)
+
+btn = ttk.Button(window, text="Ajouter charge", command=add_charge, style='primary.TButton')
+btn.grid(row=8, columnspan=5, pady=5)
+
+frame = ttk.Frame(window)
+res = ttk.Label(frame, text="Résultat", font=('Roboto', 10))
+re = ttk.Entry(frame, width=15, font=('Roboto', 12))
+res.grid(row=0, padx=10, sticky=W)
+re.grid(row=1, padx=10, pady=5, sticky=W)
+
+tot = ttk.Label(frame, text="Total des charges", font=('Roboto', 10))
+to = ttk.Entry(frame, width=15, font=('Roboto', 12))
+tot.grid(row=0, column=1, padx=10, sticky=W)
+to.grid(row=1, column=1, padx=10, pady=5, sticky=W)
+
+totrev = ttk.Label(frame, text="Total des revenus", font=('Roboto', 10))
+totr = ttk.Entry(frame, width=15, font=('Roboto', 12))
+totrev.grid(row=0, column=2, padx=10, sticky=W)
+totr.grid(row=1, column=2, padx=10, pady=5, sticky=W)
+
+calc = ttk.Button(frame, text="Calculer", command=calculer, style='secondary.TButton')
+calc.grid(row=2, columnspan=5, pady=5)
+
+frame.grid(row=9)
+
+window.mainloop()
